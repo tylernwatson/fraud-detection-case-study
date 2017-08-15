@@ -48,7 +48,7 @@ Before you start building the model, start with some EDA.
 1. Load the data in with pandas. Add a 'Fraud' column that contains True or False values depending on whether the event is fraudulent or not. This is determined based on the `acct_type` field.
 2. Check how many fraud and not fraud events you have.
 3. Look at the features. Make note of ones you think will be particularly useful to you.
-4. Do any data visualization that helps you understand the data.
+4. Make any data visualizations that help you understand the data.
 
 
 #### Scope the problem
@@ -75,14 +75,14 @@ Follow the [CRISP-DM](https://en.wikipedia.org/wiki/Cross_Industry_Standard_Proc
 #### Comparing models
 
 **Notes for writing code:**
-* As you write your code, **always be committing** (ABC) to Github!
+* As you write your code, **always be committing** (ABC) to Github! You are work in a group so branches are advised.
 * Write **clean and modular code**.
 * Include **doc strings** for every function/method.
 
 *Make sure to get a working model first before you try all of your fancy ideas!*
 
 1. If you have complicated ideas, implement the simplest one first! Get a baseline built so that you can compare more complicated models to that one.
-2. Experiment with using different features in your feature matrix. Use different featurization techniques like stemming, lemmatization, tf-idf, part of speech tagging, etc.
+2. Experiment with using different features in your design matrix. Use different featurization techniques like stemming, lemmatization, tf-idf, part of speech tagging, etc. to take advantage of as much data as you can.
 3. Experiment with different models like SVM, Logistic Regression, Decision Trees, kNN, etc. You might end up with a final model that is a combination of multiple classification models.
 4. Compare their results. Make sure to do good comparison and don't just use accuracy!
 
