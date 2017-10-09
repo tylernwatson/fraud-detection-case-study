@@ -17,7 +17,6 @@ You can download the data and other files for the case study [here](files).
     * well documented
     * Model description document (see below)
 * Flask app with well documented API
-    * Needs to register your service at POST `/register`
     * Needs to accept input records on POST `/score` endpoint
 * Web based front-end to enable quick triage of potential fraud
     * Triage importance of transactions (low risk, medium risk, high risk)
@@ -188,11 +187,11 @@ You should present potentially fraudulent transactions with their probability sc
 
 ### Step 8: Deploy!
 
-* Set up AWS instance
+* Set up AWS instance (optional; you may deploy locally)
 * Set up environment on your EC2 instance
 * Push your code to github
 * SSH into the instance and clone your repo
-* Run Flask app on instance (make sure you update the register code with your updated ip and port)
+* Run Flask app on instance and collect data
 * Make it work (debug, debug, debug)
 * Profit
 
