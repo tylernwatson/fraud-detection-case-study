@@ -10,7 +10,6 @@ def create_response_label(json_file, fraudulent_types):
     :param fraudulent_types: list of strings defining which acct_types are fraudulent
     :return: DataFrame with "fraud" column added
     '''
-
     df = pd.read_json(json_file)
     df['fraud'] = df['acct_type'].isin(fraudulent_types).astype(int)
 
