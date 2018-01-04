@@ -1,7 +1,6 @@
 """
 Module containing model fitting code for a web application that implements a
 text classification model.
-
 When run as a module, this will load a csv dataset, train a classification
 model, and then pickle the resulting model object to disk.
 """
@@ -25,20 +24,49 @@ class Classifier(object):
     """
 
     def __init__(self):
-        self._classifier = RandomForestClassifier()
+        self._classifier = RandomForestClassifier(n_estimators=40, oob_score=True)
         self._vectorizer = TfidfVectorizer(stop_words='english',
                                             preprocessor=strip_tags,
                                             analyzer='word', max_df=.5)
         self._naive_bayes = MultinomialNB(alpha=.01)
+        self.labels = ['approx_payout_date',
+                         'body_length',
+                         'channels',
+                         'delivery_method',
+                         'event_created',
+                         'event_end',
+                         'event_published',
+                         'event_start',
+                         'fb_published',
+                         'gts',
+                         'has_analytics',
+                         'has_header',
+                         'has_logo',
+                         'name_length',
+                         'num_order',
+                         'num_payouts',
+                         'object_id',
+                         'org_facebook',
+                         'org_twitter',
+                         'sale_duration',
+                         'sale_duration2',
+                         'show_map',
+                         'user_age',
+                         'user_created',
+                         'user_type',
+                         'venue_latitude',
+                         'venue_longitude',
+                         'NLP_proba']
+        self.nlp_label = 'NLP_proba'
+    def get_columns(self):
+        return self.labels
 
     def fit(self, X, y):
         """Fit a classifier model.
-
         Parameters
         ----------
         X: A numpy array or list of text fragments, to be used as predictors.
         y: A numpy array or python list of labels, to be used as responses.
-
         Returns
         -------
         self: The fit model object.
@@ -53,7 +81,7 @@ class Classifier(object):
 
     def predict_NB_proba(self, X_description):
         return self._naive_bayes.predict_proba(self._vectorizer
-                                        .fit_transform(X_description))[:,1]
+                                        .transform(X_description))[:,1]
 
     def predict_proba(self, X):
         """Make probability predictions on new data."""
@@ -113,6 +141,7 @@ def get_dataframe_from_zip(filename):
     return pd.read_json('files/data.{}'.format('json'))
 
 if __name__ == '__main__':
+    from model2 import Classifier
     df = get_dataframe_from_zip("files/data.zip")
     X_numeric, X_description, y = prep_data(df)
     # X_numeric['probas'] = get_NB_probas(X_description, y)
