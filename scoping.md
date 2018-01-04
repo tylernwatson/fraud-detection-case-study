@@ -13,8 +13,6 @@ Further EDA showed that fraudulent events often have the following:
 
 We also found that fraudulent events have a lower average payout (perhaps an attempt to avoid detection).
 
-Furthermore, all accounts paying in Mexican pesos are fraudulent.
-
 We will continue our preprocessing by lemmatizing, and tf-idf vectorizing the 'description' column.
 
 * What models do you want to try?

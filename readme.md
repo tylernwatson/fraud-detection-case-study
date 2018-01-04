@@ -1,31 +1,49 @@
-# Fraud Detection Case Study
+# Overview
 
-For the next two days you will deal with the entire end to end pipeline of data science through a case study.  We have touched on aspects of this throughout the course but have not yet put all the pieces together in a single case study.
+## Process Flow
 
-The data is in that directory, under `files/data.zip`. You can uncompress the data file with this command: `unzip data.zip`.
+1. Preprocess data
+2. Fit Multinomial Naive Bayes model to Event Description text
+3. Add probabilities of fraud from Naive Bayes model as a feature to original feature set
+4. Fit all numeric features (including Naive Bayes probabilities) to a Random Forest Classifier
+5. Predict!
 
-## Themes you will be assessed on
+## Preprocessing
 
-* Software best practices (proper encapsulation and functions)
-* Product focus
-* Deployed model(s)
-* Project scoping -- independence
+- Add Fraud column -- we used all acct_type labels that included the word "Fraud" as fraudulent
+- Strip HTML tags from Event Description
+- Vectorize Event Descriptions usng TF-IDF
+    - Removed stop words, max_df = .5
+   
 
-## Rough timeline 
+## Assessment Metrics Selected
 
-* Day 1: Project scoping, Model building, and an intro to Web apps
-* Day 2: Web app and deployment
+Since this is an unbalanced dataset, we are using Precision and Recall as our main assessment metrics.
 
-## Deliverables
+Multinomial Naive Bayes Metrics:
 
-* Model (properly commented and encapsulated on Github with a readme)
-* Exposed API
-* Data visualization (extra)
+- MN Accuracy: 0.915760111576
+- MN naive recall: 0.228
+- MN naive precision: 0.61
 
-## Notes
+Random Forest Metrics:
 
-* [Here](notes.md) are some notes on how to get started with the dataset and how to save your model once you've trained it.
+- RF Accuracy 0.988
+- RF Recall: 0.914
+- RF Precision: 0.939
 
-## Exercise
+## Validation and Testing Methodology
 
-* Follow the steps in the [exercise file](instructions.md).
+- Used train_test_split and cross_val_scores
+
+## Parameter Tuning Involved in Generating the Model
+
+Multinomial Naive Bayes Tuning Parameter:
+alpha (laplace smoothing) = .01
+
+## further steps you might have taken if you were to continue the project
+
+- Further tune Random Forest Classifier
+- Calculate / incorporate event revenue based on ticket_types column
+- Further investigate for signal in other non-numeric features
+
