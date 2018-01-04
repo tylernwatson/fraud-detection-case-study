@@ -26,6 +26,10 @@ class Classifier(object):
 
     def __init__(self):
         self._classifier = RandomForestClassifier()
+        self._vectorizer = TfidfVectorizer(stop_words='english',
+                                            preprocessor=strip_tags,
+                                            analyzer='word', max_df=.5)
+        self._naive_bayes = MultinomialNB(alpha=.01)
 
     def fit(self, X, y):
         """Fit a classifier model.
@@ -42,6 +46,14 @@ class Classifier(object):
 
         self._classifier.fit(X, y)
         return self
+
+    def fit_NB(self, X_description, y):
+        self._naive_bayes.fit(self._vectorizer.fit_transform(X_description), y)
+        return self._naive_bayes
+
+    def predict_NB_proba(self, X_description):
+        return self._naive_bayes.predict_proba(self._vectorizer
+                                        .fit_transform(X_description))[:,1]
 
     def predict_proba(self, X):
         """Make probability predictions on new data."""
@@ -91,17 +103,20 @@ def prep_data(df):
     y = df_num[EDA.get_fraud_label()]
     return (X_numeric, X_description, y)
 
-def get_NB_probas(X_description, y):
-    '''
-    returns array of probabilities of fraud using MultiNB
-    '''
-    vect = TfidfVectorizer(stop_words='english',
-                                        preprocessor=strip_tags,
-                                        analyzer='word', max_df=.5)
-    mnnb = MultinomialNB(alpha=.01)
-    mnnb.fit(vect.fit_transform(X_description), y)
-    probas = mnnb.predict_proba(vect.fit_transform(X_description))[:, 1]
-    return probas
+# def fit_NB_proba(X_description, y):
+#     '''
+#     returns array of probabilities of fraud using MultiNB
+#     '''
+#     vect = TfidfVectorizer(stop_words='english',
+#                                         preprocessor=strip_tags,
+#                                         analyzer='word', max_df=.5)
+#     mnnb = MultinomialNB(alpha=.01)
+#     mnnb.fit(vect.fit_transform(X_description), y)
+#     return mnnb
+#
+# def predict_NB_proba(X, mnnb):
+#     probas = mnnb.predict_proba(vect.fit_transform(X_description))[:, 1]
+#     return probas
 
 def get_dataframe_from_zip(filename):
     '''
@@ -115,8 +130,10 @@ def get_dataframe_from_zip(filename):
 if __name__ == '__main__':
     df = get_dataframe_from_zip("files/data.zip")
     X_numeric, X_description, y = prep_data(df)
-    X_numeric['probas'] = get_NB_probas(X_description, y)
+    # X_numeric['probas'] = get_NB_probas(X_description, y)
     modeler = Classifier()
+    modeler.fit_NB(X_description, y)
+    X_numeric['probas'] = modeler.predict_NB_proba(X_description)
     modeler.fit(X_numeric, y)
     score = modeler.score(X_numeric, y)
     print('Self score: ', score)
