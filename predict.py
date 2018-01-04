@@ -2,6 +2,10 @@ import numpy as np
 import pandas as pd
 import pickle
 
+'''
+Add a column with predicted probability (using our pickled model) to the example data passed in.
+'''
+
 def make_prediction(filename, model_pickle):
     df = pd.read_json(filename, orient='index')
     first_row = df.iloc[0:1]
