@@ -71,6 +71,7 @@ def get_dataframe_from_zip(filename):
     return pd.read_json('files/data.{}'.format('json'))
 
 if __name__ == '__main__':
+    from model import Classifier
     df = get_dataframe_from_zip("files/data.zip")
     X, y = prep_data(df)
     modeler = Classifier()
