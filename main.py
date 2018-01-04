@@ -4,6 +4,7 @@ import pandas as pd
 import json
 import cPickle as pickle
 import model
+from db_wrapper import MongoWrapper
 
 import predict
 
@@ -13,6 +14,7 @@ app = Flask(__name__)
 with open('files/model.pkl', 'rb') as f:
     print('loading up that pickle')
     model = pickle.load(f)
+db = MongoWrapper()
 
 # @app.before_first_request
 # def activate_job():
@@ -46,8 +48,9 @@ def heroku_score():
     son = json.loads(response)
     # df = pd.DataFrame([son])
     df = pd.io.json.json_normalize(son)
+    NB_proba = model.predict_NB_proba(df['descriptions'])
     prediction = predict.make_prediction_df(df, model)
-    # write db
+    db.insert_one_data(prediction)
     return 'OK'
 
 if __name__ == '__main__':
