@@ -1,11 +1,5 @@
 import pymongo
 from pymongo import MongoClient
-# client = MongoClient()
-# db = client.event_db
-# events = db.events
-# post_id = events.insert_one(post).inserted_id
-# # post_id = posts.insert_one(post).inserted_id
-# # >>> post_id
 
 class MongoWrapper(object):
     def __init__(self):

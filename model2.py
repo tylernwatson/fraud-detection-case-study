@@ -58,7 +58,8 @@ class Classifier(object):
                          'venue_latitude',
                          'venue_longitude',
                          'NLP_proba']
-    def get_columns():
+        self.nlp_label = 'NLP_proba'
+    def get_columns(self):
         return self.labels
 
     def fit(self, X, y):
@@ -83,7 +84,7 @@ class Classifier(object):
 
     def predict_NB_proba(self, X_description):
         return self._naive_bayes.predict_proba(self._vectorizer
-                                        .fit_transform(X_description))[:,1]
+                                        .transform(X_description))[:,1]
 
     def predict_proba(self, X):
         """Make probability predictions on new data."""
@@ -133,10 +134,6 @@ def prep_data(df):
     y = df_num[EDA.get_fraud_label()]
     return (X_numeric, X_description, y)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 289998c1786916a3f2ab1dd7775142d3bcb16e0e
 def get_dataframe_from_zip(filename):
     '''
     returns dataframe of zipped JSON file
@@ -147,6 +144,7 @@ def get_dataframe_from_zip(filename):
     return pd.read_json('files/data.{}'.format('json'))
 
 if __name__ == '__main__':
+    from model2 import Classifier
     df = get_dataframe_from_zip("files/data.zip")
     X_numeric, X_description, y = prep_data(df)
     # X_numeric['probas'] = get_NB_probas(X_description, y)

@@ -3,7 +3,7 @@ import requests
 import pandas as pd
 import json
 import cPickle as pickle
-import model
+import model2 as model
 from db_wrapper import MongoWrapper
 
 import predict
@@ -48,7 +48,6 @@ def heroku_score():
     son = json.loads(response)
     # df = pd.DataFrame([son])
     df = pd.io.json.json_normalize(son)
-    NB_proba = model.predict_NB_proba(df['descriptions'])
     prediction = predict.make_prediction_df(df, model)
     db.insert_one_data(prediction)
     return 'OK'
