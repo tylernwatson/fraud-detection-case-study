@@ -8,7 +8,7 @@ from db_wrapper import MongoWrapper
 
 import predict
 
-from flask import Flask, url_for
+from flask import Flask, render_template
 app = Flask(__name__)
 
 with open('files/model.pkl', 'rb') as f:
@@ -42,11 +42,11 @@ def api_root():
 
 @app.route('/predictions', methods=['GET'])
 def predictions():
-    # Connect to mongo db and return entries
+    # Connect to mongo db and return entries broken up by high, medium, low risk
     entries = db.collection
-    high = entries.find({ 'fraud_probability': { $gte: .67 } } )
-    med = entries.find({ 'fraud_probability' : { $gt :  .33, $lt : .67 } } )
-    low = entries.find({ 'fraud_probability': { $lte: .33 } } )
+    high = entries.find({'fraud_probability': {'$gte': .67}})
+    med = entries.find({'fraud_probability': {'$gt':  .33, '$lt': .67}})
+    low = entries.find({'fraud_probability': {'$lte': .33}})
     return render_template('predictions.html', title='Fraud Predictions', high_data=high, med_data=med, low_data=low)
 
 # Needs to be POST
