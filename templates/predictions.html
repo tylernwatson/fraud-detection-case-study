@@ -3,15 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ title }}</title>
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/main_style.css')}}">
 </head>
 <body>
     <h1>{{ title }}</h1>
     <body>
         <h2>Fraud Prediction From Database</h2>
-        <p>High: {{ high_data }}</p>
-        <p>Medium: {{ med_data }}</p>
-        <p>Low: {{ low_data }}</p>
+
+        <p>High</p>
+        {% for data in high_data %}
+        <table>
+        <td>Org name: {{data.org_name}}</td>
+        <td>Venue: {{data.venue_name}}</td>
+        <td>Fraud Probability: {{data.fraud_probability}} </td>
+        </table>
+        {% endfor %}
+
+        <p>Medium</p>
+        {% for data in med_data %}
+        <table>
+        <td>Org name: {{data.org_name}}</td>
+        <td>Venue: {{data.venue_name}}</td>
+        <td>Fraud Probability: {{data.fraud_probability}} </td>
+        </table>
+        {% endfor %}
+
+        <p>Low</p>
+        {% for data in low_data %}
+        <table>
+        <td>Org name: {{data.org_name}}</td>
+        <td>Venue: {{data.venue_name}}</td>
+        <td>Fraud Probability: {{data.fraud_probability}} </td>
+        </table>
+        {% endfor %}
     </body>
 </body>
 </html>

@@ -43,10 +43,11 @@ def api_root():
 @app.route('/predictions', methods=['GET'])
 def predictions():
     # Connect to mongo db and return entries broken up by high, medium, low risk
+    print("HIT")
     entries = db.collection
-    high = entries.find({'fraud_probability': {'$gte': .67}})
-    med = entries.find({'fraud_probability': {'$gt':  .33, '$lt': .67}})
-    low = entries.find({'fraud_probability': {'$lte': .33}})
+    high = list(entries.find({'fraud_probability': {'$gte': .67}}))
+    med = list(entries.find({'fraud_probability': {'$gt':  .33, '$lt': .67}}))
+    low = list(entries.find({'fraud_probability': {'$lte': .33}}))
     return render_template('predictions.html', title='Fraud Predictions', high_data=high, med_data=med, low_data=low)
 
 # Needs to be POST
