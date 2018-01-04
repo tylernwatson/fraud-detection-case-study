@@ -58,6 +58,8 @@ class Classifier(object):
                          'venue_latitude',
                          'venue_longitude',
                          'NLP_proba']
+    def get_columns():
+        return self.labels
 
     def fit(self, X, y):
         """Fit a classifier model.
@@ -131,7 +133,10 @@ def prep_data(df):
     y = df_num[EDA.get_fraud_label()]
     return (X_numeric, X_description, y)
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 289998c1786916a3f2ab1dd7775142d3bcb16e0e
 def get_dataframe_from_zip(filename):
     '''
     returns dataframe of zipped JSON file
