@@ -45,7 +45,7 @@ Random Forest:
 n_estimators = 40
 oob_score = True
 
-## further steps you might have taken if you were to continue the project
+## Further steps you might have taken if you were to continue the project
 
 - Further tune Random Forest Classifier
 - Calculate / incorporate event revenue based on ticket_types column
