@@ -30,15 +30,24 @@ db = MongoWrapper()
 def api_root():
     return 'Put a route in. \n'
 
-@app.route('/hello', methods=['GET'])
-def hey_yall():
-    return 'Hello World! \n'
+# @app.route('/hello', methods=['GET'])
+# def hey_yall():
+#     return 'Hello World! \n'
 
-@app.route('/score', methods=['GET'])
-def score():
-    prediction = predict.make_prediction('../files/example.json', model)
-    return prediction
-    return 'Probably Success'
+# @app.route('/score', methods=['GET'])
+# def score():
+#     prediction = predict.make_prediction('../files/example.json', model)
+#     return prediction
+#     return 'Probably Success'
+
+@app.route('/predictions', methods=['GET'])
+def predictions():
+    # Connect to mongo db and return entries
+    entries = db.collection
+    high = entries.find({ 'fraud_probability': { $gte: .67 } } )
+    med = entries.find({ 'fraud_probability' : { $gt :  .33, $lt : .67 } } )
+    low = entries.find({ 'fraud_probability': { $lte: .33 } } )
+    return render_template('predictions.html', title='Fraud Predictions', high_data=high, med_data=med, low_data=low)
 
 # Needs to be POST
 @app.route('/heroku_score', methods=['POST'])
