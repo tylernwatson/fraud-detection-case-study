@@ -103,21 +103,6 @@ def prep_data(df):
     y = df_num[EDA.get_fraud_label()]
     return (X_numeric, X_description, y)
 
-# def fit_NB_proba(X_description, y):
-#     '''
-#     returns array of probabilities of fraud using MultiNB
-#     '''
-#     vect = TfidfVectorizer(stop_words='english',
-#                                         preprocessor=strip_tags,
-#                                         analyzer='word', max_df=.5)
-#     mnnb = MultinomialNB(alpha=.01)
-#     mnnb.fit(vect.fit_transform(X_description), y)
-#     return mnnb
-#
-# def predict_NB_proba(X, mnnb):
-#     probas = mnnb.predict_proba(vect.fit_transform(X_description))[:, 1]
-#     return probas
-
 def get_dataframe_from_zip(filename):
     '''
     returns dataframe of zipped JSON file
