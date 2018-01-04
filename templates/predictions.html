@@ -12,6 +12,7 @@
         <p>High</p>
         {% for data in high_data %}
         <table>
+        <td>Event name: {{data.name}}</td>
         <td>Org name: {{data.org_name}}</td>
         <td>Venue: {{data.venue_name}}</td>
         <td>Fraud Probability: {{data.fraud_probability}} </td>
@@ -21,6 +22,7 @@
         <p>Medium</p>
         {% for data in med_data %}
         <table>
+        <td>Event name: {{data.name}}</td>
         <td>Org name: {{data.org_name}}</td>
         <td>Venue: {{data.venue_name}}</td>
         <td>Fraud Probability: {{data.fraud_probability}} </td>
@@ -30,6 +32,7 @@
         <p>Low</p>
         {% for data in low_data %}
         <table>
+        <td>Event name: {{data.name}}</td>
         <td>Org name: {{data.org_name}}</td>
         <td>Venue: {{data.venue_name}}</td>
         <td>Fraud Probability: {{data.fraud_probability}} </td>
