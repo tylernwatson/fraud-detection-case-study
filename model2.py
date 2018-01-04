@@ -25,7 +25,7 @@ class Classifier(object):
     """
 
     def __init__(self):
-        self._classifier = RandomForestClassifier()
+        self._classifier = RandomForestClassifier(n_estimators=40, oob_score=True))
         self._vectorizer = TfidfVectorizer(stop_words='english',
                                             preprocessor=strip_tags,
                                             analyzer='word', max_df=.5)
@@ -133,10 +133,7 @@ def prep_data(df):
     y = df_num[EDA.get_fraud_label()]
     return (X_numeric, X_description, y)
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 289998c1786916a3f2ab1dd7775142d3bcb16e0e
 def get_dataframe_from_zip(filename):
     '''
     returns dataframe of zipped JSON file
