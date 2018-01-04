@@ -1,7 +1,6 @@
 """
 Module containing model fitting code for a web application that implements a
 text classification model.
-
 When run as a module, this will load a csv dataset, train a classification
 model, and then pickle the resulting model object to disk.
 """
@@ -25,7 +24,7 @@ class Classifier(object):
     """
 
     def __init__(self):
-        self._classifier = RandomForestClassifier()
+        self._classifier = RandomForestClassifier(n_estimators=40, oob_score=True)
         self._vectorizer = TfidfVectorizer(stop_words='english',
                                             preprocessor=strip_tags,
                                             analyzer='word', max_df=.5)
@@ -64,12 +63,10 @@ class Classifier(object):
 
     def fit(self, X, y):
         """Fit a classifier model.
-
         Parameters
         ----------
         X: A numpy array or list of text fragments, to be used as predictors.
         y: A numpy array or python list of labels, to be used as responses.
-
         Returns
         -------
         self: The fit model object.
