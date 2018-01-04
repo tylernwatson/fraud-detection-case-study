@@ -22,15 +22,15 @@ Since this is an unbalanced dataset, we are using Precision and Recall as our ma
 
 Multinomial Naive Bayes Metrics:
 
-MN Accuracy: 0.915760111576
-MN naive recall: 0.228
-MN naive precision: 0.61
+- MN Accuracy: 0.915760111576
+- MN naive recall: 0.228
+- MN naive precision: 0.61
 
 Random Forest Metrics:
 
-RF Accuracy 0.988
-RF Recall: 0.914
-RF Precision: 0.939
+- RF Accuracy 0.988
+- RF Recall: 0.914
+- RF Precision: 0.939
 
 ## Validation and Testing Methodology
 
