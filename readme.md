@@ -12,9 +12,9 @@
 
 - Add Fraud column -- we used all acct_type labels that included the word "Fraud" as fraudulent
 - Strip HTML tags from Event Description
-- Vectorize Event Descriptions usng TF-IDF
+- Vectorize Event Descriptions using TF-IDF
     - Removed stop words, max_df = .5
-   
+
 
 ## Assessment Metrics Selected
 
@@ -28,9 +28,9 @@ Multinomial Naive Bayes Metrics:
 
 Random Forest Metrics:
 
-- RF Accuracy 0.988
-- RF Recall: 0.914
-- RF Precision: 0.939
+- RF Accuracy 0.99
+- RF Recall: 0.937
+- RF Precision: 0.966
 
 ## Validation and Testing Methodology
 
@@ -41,9 +41,12 @@ Random Forest Metrics:
 Multinomial Naive Bayes Tuning Parameter:
 alpha (laplace smoothing) = .01
 
+Random Forest:
+n_estimators = 40
+oob_score = True
+
 ## further steps you might have taken if you were to continue the project
 
 - Further tune Random Forest Classifier
 - Calculate / incorporate event revenue based on ticket_types column
 - Further investigate for signal in other non-numeric features
-
