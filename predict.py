@@ -13,5 +13,10 @@ def make_prediction(filename, model_pickle):
     first_row_num.fillna(value=0, inplace=True)
     with open(model_pickle, 'rb') as f:
         model = pickle.load(f)
-    first_row_num['predict_proba'] = model.predict_proba(first_row_num)[:, 1]
-    return first_row_num
+    first_row_num['predict_proba'] = model.predict_proba(first_row_num)[:,1]
+    temp_dict = first_row_num.to_dict()
+    output_dict = {}
+    for k,v in temp_dict.items():
+        for v1, v2 in v.items():
+            output_dict[k] = v2
+    return output_dict
