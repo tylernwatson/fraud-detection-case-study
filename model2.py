@@ -28,7 +28,7 @@ class Classifier(object):
         self._classifier = RandomForestClassifier()
 
     def fit(self, X, y):
-        """Fit a text classifier model.
+        """Fit a classifier model.
 
         Parameters
         ----------
@@ -56,6 +56,9 @@ class Classifier(object):
         return self._classifier.score(X, y)
 
 class MLStripper(HTMLParser):
+    '''
+    Used to strip HTML tags from event descriptions
+    '''
     def __init__(self):
         self.reset()
         self.fed = []
@@ -65,12 +68,19 @@ class MLStripper(HTMLParser):
         return ''.join(self.fed)
 
 def strip_tags(html):
+    '''
+    Used to strip HTML tags from event descriptions
+    '''
     s = MLStripper()
     s.feed(html)
     return re.sub('[^A-Za-z]+', ' ', s.get_data())
 
 def prep_data(df):
-    #returns X, y with X as all numeric features from df and y as fraud label
+    '''
+    returns X_numeric, X_description, y with X_numeric as all numeric
+    features from df, X_description as the descriptions of
+    events and y as fraud label
+    '''
     new_df = df.copy()
     fraud_labels = ['fraudster', 'fraudster_att', 'fraudster_event']
     new_df = EDA.create_response_label(new_df, fraud_labels)
@@ -82,7 +92,9 @@ def prep_data(df):
     return (X_numeric, X_description, y)
 
 def get_NB_probas(X_description, y):
-    #returns array of probabilities of fraud using MultiNB
+    '''
+    returns array of probabilities of fraud using MultiNB
+    '''
     vect = TfidfVectorizer(stop_words='english',
                                         preprocessor=strip_tags,
                                         analyzer='word', max_df=.5)
@@ -92,7 +104,9 @@ def get_NB_probas(X_description, y):
     return probas
 
 def get_dataframe_from_zip(filename):
-    #returns dataframe of zipped JSON file
+    '''
+    returns dataframe of zipped JSON file
+    '''
     zip = ZipFile(filename)
     zip.extractall('files/')
     # file should be data.json
@@ -100,7 +114,6 @@ def get_dataframe_from_zip(filename):
 
 if __name__ == '__main__':
     df = get_dataframe_from_zip("files/data.zip")
-    # df = add_fraud_col(df)
     X_numeric, X_description, y = prep_data(df)
     X_numeric['probas'] = get_NB_probas(X_description, y)
     modeler = Classifier()
