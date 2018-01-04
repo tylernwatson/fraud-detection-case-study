@@ -30,6 +30,34 @@ class Classifier(object):
                                             preprocessor=strip_tags,
                                             analyzer='word', max_df=.5)
         self._naive_bayes = MultinomialNB(alpha=.01)
+        self.labels = ['approx_payout_date',
+                         'body_length',
+                         'channels',
+                         'delivery_method',
+                         'event_created',
+                         'event_end',
+                         'event_published',
+                         'event_start',
+                         'fb_published',
+                         'gts',
+                         'has_analytics',
+                         'has_header',
+                         'has_logo',
+                         'name_length',
+                         'num_order',
+                         'num_payouts',
+                         'object_id',
+                         'org_facebook',
+                         'org_twitter',
+                         'sale_duration',
+                         'sale_duration2',
+                         'show_map',
+                         'user_age',
+                         'user_created',
+                         'user_type',
+                         'venue_latitude',
+                         'venue_longitude',
+                         'NLP_proba']
 
     def fit(self, X, y):
         """Fit a classifier model.
@@ -103,20 +131,6 @@ def prep_data(df):
     y = df_num[EDA.get_fraud_label()]
     return (X_numeric, X_description, y)
 
-# def fit_NB_proba(X_description, y):
-#     '''
-#     returns array of probabilities of fraud using MultiNB
-#     '''
-#     vect = TfidfVectorizer(stop_words='english',
-#                                         preprocessor=strip_tags,
-#                                         analyzer='word', max_df=.5)
-#     mnnb = MultinomialNB(alpha=.01)
-#     mnnb.fit(vect.fit_transform(X_description), y)
-#     return mnnb
-#
-# def predict_NB_proba(X, mnnb):
-#     probas = mnnb.predict_proba(vect.fit_transform(X_description))[:, 1]
-#     return probas
 
 def get_dataframe_from_zip(filename):
     '''
