@@ -8,7 +8,7 @@ from db_wrapper import MongoWrapper
 
 import predict
 
-from flask import Flask, url_for, render_template
+from flask import Flask, render_template
 app = Flask(__name__)
 
 with open('files/model.pkl', 'rb') as f:
